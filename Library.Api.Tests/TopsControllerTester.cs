@@ -37,9 +37,6 @@ namespace Library.Api.Tests
         [Fact]
         public void Top_BadEntry_BadRequest400Code()
         {
-            const string message = "Bad top entry";
-
-            mockService.Setup(service => service.GetTop(-10)).Returns(new List<Book>());
             controller.top = -10;
             var response = controller.Top();
             ObjectResult badObjectResult = response as ObjectResult;
@@ -49,7 +46,7 @@ namespace Library.Api.Tests
         [Fact]
         public void Top_SqlException_RepositoryError500Code()
         {
-            Exception exception = new Exception("", new Exception(""));
+            Exception exception = new ("", new Exception(""));
             mockService.Setup(service => service.GetTop(10)).Throws(exception);
             var response = controller.Top();
             ObjectResult badObjectResult = response as ObjectResult;
